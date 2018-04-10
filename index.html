@@ -26,7 +26,40 @@ Minyue Dai, Chujun He, Xueying Zeng -->
 			<input id="CourseCredit" type="number"></input>
 
 			<button type="button" onclick="submitCourse()">Submit</button>
+
 		</form>
+
+		<!-- modal for help -->
+		<button id="modalButton">HELP</button>
+		<div id="helpModal" class="modal">
+
+		  <!-- Modal content -->
+		  <div class="modal-content">
+		    <span class="close">&times;</span>
+		    <h4>Initialize the Degree Information and Add Courses</h4>
+		    <p>Please enter your degree information on the left, and then
+		    	click "submit" to save the information. Then you can manually
+		    	type all courses you have taken.
+		    </p>
+		    <h4>Box Shows More Credits You Need</h4>
+		    <p>
+		    	Four boxes keep track of the number of credits you need for graduation.
+		    	On the third row, two boxes indicate credits needed for outside department
+		    	and total graduation requirement, respectively.
+		    </p>
+		    <h4>Double Click Course Node to Delete This Course</h4>
+		    <p>
+		    In the visualization panel, you can double click the node to delete that course.
+		    </p>
+		    <h4>Drag Course Node to Move Its Category</h4>
+		    <p>
+		    	To change the category of courses, such as some cross-registered courses, you
+		    	can click and drag nodes to another dashed panel. 
+		    </p>
+		    <!-- <p>Some text in the Modal..</p> -->
+		  </div>
+
+		</div>
 
 		<!-- 2 canvas for visualization -->
 		<div id="major1canvas"></div>
@@ -128,7 +161,10 @@ Minyue Dai, Chujun He, Xueying Zeng -->
 
 		// initialize the degree
 		var mydegree = new degree("CSC",44,"MTH",40,64,128);
+		// draw canvas
 		drawCourseCanvas();
+		//	set up modal 
+		setUpModal();
 		
 		function submitDegree(){
 			// marjor 1 change
@@ -327,6 +363,36 @@ Minyue Dai, Chujun He, Xueying Zeng -->
 				var element = document.getElementById(divs[i]);
 				// caal function to compute needed credit
 				element.innerHTML = mydegree.neededCredit(countLabel[i]);
+			}
+		}
+
+		// setup the modal for help information
+		// https://www.w3schools.com/howto/howto_css_modals.asp
+		function setUpModal(){
+			// Get the modal
+			var modal = document.getElementById('helpModal');
+
+			// Get the button that opens the modal
+			var btn = document.getElementById("modalButton");
+
+			// Get the <span> element that closes the modal
+			var span = document.getElementsByClassName("close")[0];
+
+			// When the user clicks the button, open the modal 
+			btn.onclick = function() {
+			    modal.style.display = "block";
+			}
+
+			// When the user clicks on <span> (x), close the modal
+			span.onclick = function() {
+			    modal.style.display = "none";
+			}
+
+			// When the user clicks anywhere outside of the modal, close it
+			window.onclick = function(event) {
+			    if (event.target == modal) {
+			        modal.style.display = "none";
+			    }
 			}
 		}
 
