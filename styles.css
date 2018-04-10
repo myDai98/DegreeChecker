@@ -1,0 +1,51 @@
+
+
+table{
+   overflow-y:scroll;
+   height:150px;
+   display:block;
+   text-align: center;
+}
+
+#major1form,#major2form,#outsideform{
+	width: 350px;
+}
+
+input{
+	width: 70px;
+}
+
+#major1canvas,#major2canvas,#outsidecanvas{
+	position: absolute;
+	height: 250px;
+	width: 700px;
+  left:500px;
+	border: 3px dashed #99CCCC;
+    border-radius: 10px;
+}
+#major1canvas{
+	top:40px;
+}
+
+#major2canvas{
+	top:300px;
+}
+
+#outsidecanvas{
+	top:560px;
+}
+
+.badge {
+  height: 50px;
+  width: 50px;
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+  border-radius: 50%;
+  background: yellow;
+  position: absolute;
+}
+
+body{
+  font-family: "Verdana", Times, Sans-serif;
+}

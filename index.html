@@ -1,0 +1,300 @@
+<!-- CSC 220 Final Project
+Minyue Dai, Chujun He, Xueying Zeng -->
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Degree Checker</title>
+		<style type="text/css"></style>
+		<link rel="stylesheet" href="styles.css">
+		<script type="text/javascript" src="degree.js"></script>
+	</head>
+
+	<body>
+		<form id="course" >
+			<label for="majorCode">Major Code</label>
+			<input id="majorCode" type="text"></input>
+
+			<label for="CourseCode">Course Code</label>
+			<input id="CourseCode" type="number"></input>
+
+			<label for="courseName">Course Name</label>
+			<input id="courseNmae" type="text"></input>
+
+			<label for="CourseCredit">Course Credit</label>
+			<input id="CourseCredit" type="number"></input>
+
+			<button type="button" onclick="submitCourse()">Submit</button>
+		</form>
+		<div id="major1canvas"></div>
+		<div id="major2canvas"></div>
+		<div id="outsidecanvas"></div>
+
+		<div id="divmajor1">
+			<h3> Major/Minor 1</h3>
+			<form id="major1form" >
+				<label for="major1Name">Name</label>
+				<input id="major1Name" type="text"></input>
+				<label for="major1_Code">Code</label>
+				<input id="major1_Code" type="text"></input>
+				<label for="major1Credit">Graduation Credit</label>
+				<input id="major1Credit" type="number"></input>
+				<button type="button" onclick="submitDegree()">Submit</button>
+			</form>
+			<table id="major1">
+				<thead>
+				<tr>
+					<th>Major Code</th>
+					<th>Course Code</th>
+					<th>Course Name</th>
+					<th>Course Credit</th>
+				</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+		</div>
+
+		<div id="divmajor2">
+			<h3> Major/Minor 2</h3>
+			<form id="major2form" >
+				<label for="major2Name">Name</label>
+				<input id="major2Name" type="text"></input>
+				<label for="major2_Code">Code</label>
+				<input id="major2_Code" type="text"></input>
+				<label for="major2Credit">Graduation Credit</label>
+				<input id="major2Credit" type="number"></input>
+				<button type="button" onclick="submitDegree()">Submit</button>
+			</form>
+
+			<table id="major2">
+				<thead>
+				<tr>
+					<th>Major Code</th>
+					<th>Course Code</th>
+					<th>Course Name</th>
+					<th>Course Credit</th>
+				</tr>
+				</thead>
+
+				<tbody>
+			  	</tbody>
+			
+			</table>
+		</div>
+
+		<div id="divoutside" >
+			<h3> Outside Major</h3>
+			<form id="outsideform">
+				<label for="outsideCredit">Outside Credit</label>
+				<input id="outsideCredit" type="number"></input>
+				<br>
+				<label for="graduateCredit">Graduation Credit</label>
+				<input id="graduateCredit" type="number"></input>
+				<button type="button" onclick="submitDegree()">Submit</button>
+			</form>
+			<table id="outside">
+				<thead>
+				<tr>
+					<th>Major Code</th>
+					<th>Course Code</th>
+					<th>Course Name</th>
+					<th>Course Credit</th>
+				</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+		</div>
+		
+		<script>
+
+		// initialize the degree
+		var mydegree = new degree("CSC",44,"MTH",40,64,128);
+		drawCourseCanvas();
+		
+		function submitDegree(){
+			// marjor 1 change
+			mydegree.major1 = document.getElementById('major1_Code').value;
+			mydegree.credit1 = document.getElementById('major1Credit').value;
+
+			// major 2 
+			mydegree.major2 = document.getElementById('major2_Code').value;
+			mydegree.credit2 = document.getElementById('major2Credit').value;
+
+			// outside department and graduate
+			mydegree.creditOutside = document.getElementById('outsideCredit').value;
+			mydegree.creditGraduate = document.getElementById('graduateCredit').value;
+
+			// rearage courses
+			mydegree.rearrageCourses();
+
+			// rearrage the table of course
+			rearrageTables();
+		};
+
+		// add the course information to given ro
+		function rearrageTables(){
+			var tableArray = ["major1","major2","outside"];
+			var coursesArray = [mydegree.major1Courses,mydegree.major2Courses,
+			mydegree.outsideCourses];
+			for(var i=0;i<3;i++){
+				var tbody = document.getElementById(tableArray[i]).getElementsByTagName('tbody')[0];
+				tbody.innerHTML = ""
+				for(var j=0;j<coursesArray[i].length;j++){
+					addRow(tbody,j,coursesArray[i][j]);
+				}
+			}
+			
+		};
+
+		// insert row 
+		function addRow(tbody,index,course){
+			var row = tbody.insertRow(index);
+			// add cells
+			var cell1 = row.insertCell(0);
+	      	var cell2 = row.insertCell(1);
+	      	var cell3 = row.insertCell(2);
+	      	var cell4 = row.insertCell(3);
+
+	      	// add information
+	      	cell1.innerHTML = course.majorCode;
+	      	cell2.innerHTML = course.courseCode;
+	      	cell3.innerHTML = course.courseName;
+	      	cell4.innerHTML = course.courseCredit;
+		};
+
+		// add 1 course
+		function submitCourse(){
+			var form = document.getElementById("course");
+			// a new course object 
+			
+			// for(i=10;i<form.childNodes.length;i++){
+			// 	alert(form.childNodes[i].value);
+			// }
+			var newcourse = new course(form.childNodes[3].value,form.childNodes[7].value,form.childNodes[11].value,form.childNodes[15].value);
+
+			// add new course in degree 
+			mydegree.addCourse(newcourse);
+
+			// change the table
+			addCourse(newcourse);
+
+			// draw canvas
+			drawCourseCanvas();
+		};
+
+		// add new course in the table
+		function addCourse(course){
+			if(course.majorCode==mydegree.major1){
+				addRow(document.getElementById("major1").getElementsByTagName('tbody')[0],mydegree.major1Courses.length-1,course);
+			}
+			else if (course.majorCode==mydegree.major2){
+				addRow(document.getElementById("major2").getElementsByTagName('tbody')[0],mydegree.major2Courses.length-1,course);
+			}
+			else{
+				addRow(document.getElementById("outside").getElementsByTagName('tbody')[0],mydegree.outsideCourses.length-1,course);
+			}
+		};
+
+		// draw all courses node
+		function drawCourseCanvas(){
+			//alert("drawCourseCanvas");
+			var canvases = ["major1canvas","major2canvas","outsidecanvas"];
+			var coursesArray = [mydegree.major1Courses,mydegree.major2Courses,
+			mydegree.outsideCourses];
+			for(i=0;i<canvases.length;i++){
+				// all 3 canvas
+				var canvas = document.getElementById(canvases[i]);
+				canvas.innerHTML = "";
+				for(var j=0;j<coursesArray[i].length;j++){
+					// for each course
+					
+					drawCourseNode(canvas,coursesArray[i][j],j);
+				}
+
+			}
+		}
+
+		// draw 1 course on 1 canvas
+		function drawCourseNode(canvas,course,index){
+
+			var circle = document.createElement('div');
+			circle.className="badge";
+			circle.id = course.majorCode+course.courseCode.toString();
+
+			// style iformation
+			circle.style.top = (50*(Math.floor(index/12))).toString()+"px";
+			circle.style.left = (50*(index%12)).toString()+"px";
+			// color
+			var color = colors[mydegree.courseMajors.indexOf(course.majorCode)];
+			circle.style.background = color;
+			circle.innerHTML = course.majorCode+"<br>"+course.courseCode.toString();
+			// make element draggable
+			dragElement(circle);
+			// double click to remove the course
+			doubleClickRemove(circle,course);
+			canvas.appendChild(circle);
+		}
+
+		// double click to remove course
+		function doubleClickRemove(element,course){
+			element.ondblclick=clickRemove;
+
+			function clickRemove(e){
+				mydegree.removeCourse(course);
+				rearrageTables();
+				drawCourseCanvas();
+			}
+		}
+
+		// make element draggable
+		//https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_draggable
+		function dragElement(elmnt) {
+
+		  var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+		  if (document.getElementById(elmnt.id + "header")) {
+		    /* if present, the header is where you move the DIV from:*/
+		    document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
+		  } else {
+		    /* otherwise, move the DIV from anywhere inside the DIV:*/
+		    elmnt.onmousedown = dragMouseDown;
+		  }
+
+		  function dragMouseDown(e) {
+		    e = e || window.event;
+		    // get the mouse cursor position at startup:
+		    pos3 = e.clientX;
+		    pos4 = e.clientY;
+		    document.onmouseup = closeDragElement;
+		    // call a function whenever the cursor moves:
+		    document.onmousemove = elementDrag;
+		  }
+
+		  function elementDrag(e) {
+
+		    e = e || window.event;
+		    // calculate the new cursor position:
+		    pos1 = pos3 - e.clientX;
+		    pos2 = pos4 - e.clientY;
+		    pos3 = e.clientX;
+		    pos4 = e.clientY;
+		    // set the element's new position:
+		    elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+		    elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+		  }
+
+		  function closeDragElement() {
+		    /* stop moving when mouse button is released:*/
+		    document.onmouseup = null;
+		    document.onmousemove = null;
+		  }
+		}
+
+		
+		
+		</script>
+
+	</body>
+
+</html>
