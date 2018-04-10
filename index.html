@@ -11,6 +11,7 @@ Minyue Dai, Chujun He, Xueying Zeng -->
 	</head>
 
 	<body>
+		<!-- add course form -->
 		<form id="course" >
 			<label for="majorCode">Major Code</label>
 			<input id="majorCode" type="text"></input>
@@ -26,12 +27,22 @@ Minyue Dai, Chujun He, Xueying Zeng -->
 
 			<button type="button" onclick="submitCourse()">Submit</button>
 		</form>
+
+		<!-- 2 canvas for visualization -->
 		<div id="major1canvas"></div>
 		<div id="major2canvas"></div>
 		<div id="outsidecanvas"></div>
 
+		<!-- block to display credit count -->
+		<div class="count" id = "major1count"></div>
+		<div class="count" id = "major2count"></div>
+		<div class="count" id = "outsidecount"></div>
+		<div class="count" id = "graduatecount"></div>
+
+		<!-- major 1 form -->
 		<div id="divmajor1">
 			<h3> Major/Minor 1</h3>
+			
 			<form id="major1form" >
 				<label for="major1Name">Name</label>
 				<input id="major1Name" type="text"></input>
@@ -41,6 +52,7 @@ Minyue Dai, Chujun He, Xueying Zeng -->
 				<input id="major1Credit" type="number"></input>
 				<button type="button" onclick="submitDegree()">Submit</button>
 			</form>
+			
 			<table id="major1">
 				<thead>
 				<tr>
@@ -55,6 +67,7 @@ Minyue Dai, Chujun He, Xueying Zeng -->
 			</table>
 		</div>
 
+		<!-- major 2 form  -->
 		<div id="divmajor2">
 			<h3> Major/Minor 2</h3>
 			<form id="major2form" >
@@ -66,6 +79,7 @@ Minyue Dai, Chujun He, Xueying Zeng -->
 				<input id="major2Credit" type="number"></input>
 				<button type="button" onclick="submitDegree()">Submit</button>
 			</form>
+
 
 			<table id="major2">
 				<thead>
@@ -83,7 +97,8 @@ Minyue Dai, Chujun He, Xueying Zeng -->
 			</table>
 		</div>
 
-		<div id="divoutside" >
+		<!-- outside department form  -->
+		<div id="divoutside">
 			<h3> Outside Major</h3>
 			<form id="outsideform">
 				<label for="outsideCredit">Outside Credit</label>
@@ -93,6 +108,8 @@ Minyue Dai, Chujun He, Xueying Zeng -->
 				<input id="graduateCredit" type="number"></input>
 				<button type="button" onclick="submitDegree()">Submit</button>
 			</form>
+
+
 			<table id="outside">
 				<thead>
 				<tr>
@@ -131,6 +148,9 @@ Minyue Dai, Chujun He, Xueying Zeng -->
 
 			// rearrage the table of course
 			rearrageTables();
+
+			// show needed credit
+			showNeededCredit();
 		};
 
 		// add the course information to given ro
@@ -182,6 +202,9 @@ Minyue Dai, Chujun He, Xueying Zeng -->
 
 			// draw canvas
 			drawCourseCanvas();
+
+			// show needed credit
+			showNeededCredit();
 		};
 
 		// add new course in the table
@@ -245,6 +268,8 @@ Minyue Dai, Chujun He, Xueying Zeng -->
 				mydegree.removeCourse(course);
 				rearrageTables();
 				drawCourseCanvas();
+				// show needed credit
+				showNeededCredit();
 			}
 		}
 
@@ -289,6 +314,20 @@ Minyue Dai, Chujun He, Xueying Zeng -->
 		    document.onmouseup = null;
 		    document.onmousemove = null;
 		  }
+		}
+
+		// count needed credit and show it
+		function showNeededCredit(){
+			// all div name
+			var divs = ["major1count","major2count","outsidecount","graduatecount"];
+			// all function parameters
+			var countLabel = ["major1","major2","outside","graduate"];
+
+			for(i=0;i<divs.length;i++){
+				var element = document.getElementById(divs[i]);
+				// caal function to compute needed credit
+				element.innerHTML = mydegree.neededCredit(countLabel[i]);
+			}
 		}
 
 		

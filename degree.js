@@ -46,6 +46,7 @@ class degree{
 
 	// function to add Course
 	addCourse(course){
+		// add into correct array
 		if(course.majorCode==this.major1){
 			this.major1Courses.push(course);
 		}
@@ -56,10 +57,11 @@ class degree{
 			this.outsideCourses.push(course);
 		}
 
-		
+		// add to general array
 		if(!this.allCourses.includes(course)){
 			this.allCourses.push(course);
 		}
+		// add major code
 		if(!this.courseMajors.includes(course.majorCode)){
 			this.courseMajors.push(course.majorCode);
 		}
@@ -77,21 +79,26 @@ class degree{
 	sumCredit(courses){
 		var sum=0;
 		for(var i=0;i<courses.length;i++){
-			sum=sum+courses[i].courseCredit;
+			sum=sum+parseInt(courses[i].courseCredit);
 		}
 		return sum;
+
 	};
 
 	// return needed credits for given major/outside
 	neededCredit(part){
 		if(part=="major1"){
-			return Math.max(credit1-sumCredit(this.major1Courses),0);
+
+			return Math.max(this.credit1-this.sumCredit(this.major1Courses),0);
 		}
 		else if(part=="major2"){
-			return Math.max(credit1-sumCredit(this.major2Courses),0);
+			return Math.max(this.credit2-this.sumCredit(this.major2Courses),0);
+		}
+		else if(part=="outside"){
+			return Math.max(this.creditOutside-this.sumCredit(this.outsideCourses),0);
 		}
 		else{
-			return Math.max(credit1-sumCredit(this.outsideCourses),0);
+			return Math.max(this.creditGraduate-this.sumCredit(this.allCourses),0);
 		}
 	};
 
