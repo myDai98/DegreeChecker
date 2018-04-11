@@ -1,0 +1,20 @@
+[
+	{
+		"majorCode":"CSC",
+		"courseCode":212,
+		"courseName":"Data Structure",
+		"courseCredit":4
+	},
+	{
+		"majorCode":"MTH",
+		"courseCode":153,
+		"courseName":"Discrete Math",
+		"courseCredit":4
+	},
+	{
+		"majorCode":"PHY",
+		"courseCode":118,
+		"courseName":"Introduction to Physics",
+		"courseCredit":4
+	}
+]

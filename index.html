@@ -26,7 +26,8 @@ Minyue Dai, Chujun He, Xueying Zeng -->
 			<input id="CourseCredit" type="number"></input>
 
 			<button type="button" onclick="submitCourse()">Submit</button>
-
+			<!-- upload a json file about courses -->
+			<input id="file" type="file"/>
 		</form>
 
 		<!-- modal for help -->
@@ -171,6 +172,9 @@ Minyue Dai, Chujun He, Xueying Zeng -->
 		drawCourseCanvas();
 		//	set up modal 
 		setUpModal();
+
+		//set up file uploaded channel
+		document.getElementById('file').addEventListener('change', onChange);
 		
 		function submitDegree(){
 			// marjor 1 change
@@ -422,6 +426,39 @@ Minyue Dai, Chujun He, Xueying Zeng -->
 			}
 		}
 
+		// read uploaded json file
+		//https://stackoverflow.com/questions/23344776/access-data-of-uploaded-json-file-using-javascript/27116209?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
+		function onChange(event) {
+		        var reader = new FileReader();
+		        reader.onload = onReaderLoad;
+		        reader.readAsText(event.target.files[0]);
+		    };
+
+	    function onReaderLoad(event){
+	        console.log(event.target.result);
+	        // parse the course information
+	        var coursesInfo = JSON.parse(event.target.result);
+	        // read all courses
+	        readCourses(coursesInfo);
+	        //alert(obj[0].majorCode);
+	    };
+		
+
+
+		//function that takes json object and load all courses
+		function readCourses(data){
+			for(i=0;i<data.length;i++){
+				// add courses 1 by 1
+				// var newcourse = new course(form.childNodes[3].value,form.childNodes[7].value,form.childNodes[11].value,form.childNodes[15].value);
+				var newcourse = new course(data[i].majorCode,data[i].courseCode
+					,data[i].courseName,data[i].courseCredit);
+				mydegree.addCourse(newcourse);
+			}
+			// reset the page
+			rearrageTables();
+			drawCourseCanvas();
+			showNeededCredit();
+		}
 		
 		
 		</script>
