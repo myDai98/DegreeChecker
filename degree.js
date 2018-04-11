@@ -67,6 +67,22 @@ class degree{
 		}
 	};
 
+	// movecourse
+	moveCourse(course,courseArray){
+		this.removeCourse(course);
+		courseArray.push(course);
+
+		// add to general array
+		if(!this.allCourses.includes(course)){
+			this.allCourses.push(course);
+		}
+		// add major code
+		if(!this.courseMajors.includes(course.majorCode)){
+			this.courseMajors.push(course.majorCode);
+		}
+
+	}
+
 	// function to remove course
 	removeCourse(course){	
 		removeObject(this.major1Courses,course);

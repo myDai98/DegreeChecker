@@ -47,24 +47,29 @@ Minyue Dai, Chujun He, Xueying Zeng -->
 		    	On the third row, two boxes indicate credits needed for outside department
 		    	and total graduation requirement, respectively.
 		    </p>
-		    <h4>Double Click Course Node to Delete This Course</h4>
-		    <p>
-		    In the visualization panel, you can double click the node to delete that course.
-		    </p>
 		    <h4>Drag Course Node to Move Its Category</h4>
 		    <p>
 		    	To change the category of courses, such as some cross-registered courses, you
 		    	can click and drag nodes to another dashed panel. 
+		    </p>
+		   	<h4>Drag Course Node Outside Panel to Delete This Course</h4>
+		    <p>
+		    In the visualization panel, you can move the node outside the panel to 
+		    delete that course.
 		    </p>
 		    <!-- <p>Some text in the Modal..</p> -->
 		  </div>
 
 		</div>
 
-		<!-- 2 canvas for visualization -->
+		<!-- 3 canvases for visualization -->
+		<div id = "boxcanvas"class="canvases">
 		<div id="major1canvas"></div>
 		<div id="major2canvas"></div>
-		<div id="outsidecanvas"></div>
+		<div id="outsidecanvas" ></div>
+		</div>
+		<!-- canvas for node -->
+		<div id="nodecanvas" class="canvases"></div>
 
 		<!-- block to display credit count -->
 		<div class="count" id = "major1count"></div>
@@ -73,6 +78,7 @@ Minyue Dai, Chujun He, Xueying Zeng -->
 		<div class="count" id = "graduatecount"></div>
 
 		<!-- major 1 form -->
+		<br>
 		<div id="divmajor1">
 			<h3> Major/Minor 1</h3>
 			
@@ -258,62 +264,62 @@ Minyue Dai, Chujun He, Xueying Zeng -->
 
 		// draw all courses node
 		function drawCourseCanvas(){
-			//alert("drawCourseCanvas");
-			var canvases = ["major1canvas","major2canvas","outsidecanvas"];
 			var coursesArray = [mydegree.major1Courses,mydegree.major2Courses,
 			mydegree.outsideCourses];
-			for(i=0;i<canvases.length;i++){
-				// all 3 canvas
-				var canvas = document.getElementById(canvases[i]);
-				canvas.innerHTML = "";
+			var offsets = [10,270,530];
+			var canvas = document.getElementById("nodecanvas");
+			canvas.innerHTML = "";
+			for(i=0;i<coursesArray.length;i++){
+				
 				for(var j=0;j<coursesArray[i].length;j++){
-					// for each course
-					
-					drawCourseNode(canvas,coursesArray[i][j],j);
+					// for each course	
+					drawCourseNode(canvas,coursesArray[i][j],j,offsets[i]);
 				}
 
 			}
+
 		}
 
 		// draw 1 course on 1 canvas
-		function drawCourseNode(canvas,course,index){
+		function drawCourseNode(canvas,course,index,offset){
 
 			var circle = document.createElement('div');
 			circle.className="badge";
 			circle.id = course.majorCode+course.courseCode.toString();
 
 			// style iformation
-			circle.style.top = (50*(Math.floor(index/12))).toString()+"px";
-			circle.style.left = (50*(index%12)).toString()+"px";
+			circle.style.top = (offset+52*(Math.floor(index/12))).toString()+"px";
+			circle.style.left = (25+54*(index%12)).toString()+"px";
 			// color
 			var color = colors[mydegree.courseMajors.indexOf(course.majorCode)];
 			circle.style.background = color;
 			circle.innerHTML = course.majorCode+"<br>"+course.courseCode.toString();
 			// make element draggable
-			dragElement(circle);
-			// double click to remove the course
-			doubleClickRemove(circle,course);
+			dragElement(circle,course);
 			canvas.appendChild(circle);
 		}
 
-		// double click to remove course
-		function doubleClickRemove(element,course){
-			element.ondblclick=clickRemove;
+		// // double click to remove course
+		// function doubleClickRemove(element,course){
+		// 	element.ondblclick=clickRemove;
 
-			function clickRemove(e){
-				mydegree.removeCourse(course);
-				rearrageTables();
-				drawCourseCanvas();
-				// show needed credit
-				showNeededCredit();
-			}
-		}
+		// 	function clickRemove(e){
+		// 		mydegree.removeCourse(course);
+		// 		rearrageTables();
+		// 		drawCourseCanvas();
+		// 		// show needed credit
+		// 		showNeededCredit();
+		// 	}
+		// }
 
 		// make element draggable
 		//https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_draggable
-		function dragElement(elmnt) {
+		function dragElement(elmnt,course) {
 
 		  var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+		  // range of 3 canvas
+		  var ranges = [10,300,530,800];
+
 		  if (document.getElementById(elmnt.id + "header")) {
 		    /* if present, the header is where you move the DIV from:*/
 		    document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
@@ -345,8 +351,28 @@ Minyue Dai, Chujun He, Xueying Zeng -->
 		    elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
 		  }
 
-		  function closeDragElement() {
+		  function closeDragElement(e) {
 		    /* stop moving when mouse button is released:*/
+		    // get current top
+		    var top = e.clientY;
+		    var left = e.clientX;
+		    var coursesArray = [mydegree.major1Courses,mydegree.major2Courses,
+			mydegree.outsideCourses];
+			// test if we move the category
+			for(i=0;i<coursesArray.length;i++){
+				if(top>=ranges[i]&&top<=ranges[i+1]){
+					mydegree.moveCourse(course,coursesArray[i]);
+				}
+			}
+			// test if we want to delete (outside canvas)
+			if(left<500||left>1250){
+				mydegree.removeCourse(course);
+			}
+
+			// reset the page
+			rearrageTables();
+			drawCourseCanvas();
+			showNeededCredit();
 		    document.onmouseup = null;
 		    document.onmousemove = null;
 		  }
