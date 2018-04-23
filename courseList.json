@@ -1,0 +1,80 @@
+[
+    {
+        "majorCode": "ECO",
+        "courseCode": 150,
+        "courseName": "INTRODUCTORY MICROECONOMICS",
+        "courseCredit": 4
+    },
+    {
+        "majorCode": "ENG",
+        "courseCode": 118,
+        "courseName": "COLLOQUIA IN WRITING",
+        "courseCredit": 4
+    },
+    {
+        "majorCode": "MTH",
+        "courseCode": 153,
+        "courseName": "INTRO DISCRETE MATHEMATICS",
+        "courseCredit": 4
+    },
+    {
+        "majorCode": "PHY",
+        "courseCode": 118,
+        "courseName": "INTRODUCTORY PHYSICS II",
+        "courseCredit": 5
+    },
+    {
+        "majorCode": "CSC",
+        "courseCode": 212,
+        "courseName": "PROGRAM WITH DATA STRUCTURES",
+        "courseCredit": 5
+    },
+    {
+        "majorCode": "CSC",
+        "courseCode": 250,
+        "courseName": "THEORY OF COMPUTATION",
+        "courseCredit": 4
+    },
+    {
+        "majorCode": "MTH",
+        "courseCode": 211,
+        "courseName": "LINEAR ALGEBRA",
+        "courseCredit": 4
+    },
+    {
+        "majorCode": "SDS",
+        "courseCode": 192,
+        "courseName": "INTRO TO DATA SCIENCES",
+        "courseCredit": 4
+    },
+    {
+        "majorCode": "CSC",
+        "courseCode": 231,
+        "courseName": "MICROPROCESSOR &amp; ASSEMBLY LANG",
+        "courseCredit": 4
+    },
+    {
+        "majorCode": "CSC",
+        "courseCode": 400,
+        "courseName": "SP ST:SYRIC MACHINE LEARNING",
+        "courseCredit": 2
+    },
+    {
+        "majorCode": "MTH",
+        "courseCode": 212,
+        "courseName": "CALCULUS III",
+        "courseCredit": 4
+    },
+    {
+        "majorCode": "MTH",
+        "courseCode": 246,
+        "courseName": "PROBABILITY",
+        "courseCredit": 4
+    },
+    {
+        "majorCode": "SDS",
+        "courseCode": 293,
+        "courseName": "MACHINE LEARNING",
+        "courseCredit": 4
+    }
+]

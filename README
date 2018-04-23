@@ -1,0 +1,25 @@
+#README
+#Minyue Dai, Chujun He, Xueying Zeng
+
+The instructions about how to use the website is on the HELP menu, here we just introduce how to use parser.py to automatically generate json data file for courses taken by Smith College Student.
+
+(All steps in Chrome, OS)
+
+Dependency: 
+Python 3, BeautifulSoup Library 
+
+1. Go to BannerWeb and open your online transcript.
+(BannerWeb -- Student -- Student Record Memu -- Unofficial Transcript
+-- All Levels, Official Web -- Submit)
+
+2. Save the webpage in htm form 
+(Right Click -- Save As -- Format:Web Page, Complete)
+
+3. Then run the parser.py in Python3
+Move the htm file to the same directory, and change python code’s file name to your file name. Then in the same directory there will be a data file named “courseList.json”.
+
+4. Open the website, then enter your degree information and click submit
+
+5. Then click “choose file” and submit the “courseList.json” file
+
+6. Down and your can play with it. 

@@ -33,14 +33,13 @@ class degree{
 
 		this.creditOutside = creditOutside;
 		this.outsideCourses = [];
-
-		// save all taken courses' majors and color
-		this.courseMajors=[];
-
+		
+		this.creditGraduate=creditGraduate;
 		// save all courses;
 		this.allCourses= [];
 
-		this.creditGraduate=creditGraduate;
+		// save all taken courses' majors and color
+		this.courseMajors=[];
 
 	};
 
