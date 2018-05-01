@@ -23,3 +23,8 @@ Move the htm file to the same directory, and change python code’s file name to
 5. Then click “choose file” and submit the “courseList.json” file
 
 6. Down and your can play with it. 
+
+
+## New Technique
+
+We use regular expression and BeautifulSoup to implement the parser, which is new for this class. 

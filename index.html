@@ -207,6 +207,9 @@ Minyue Dai, Chujun He, Xueying Zeng -->
 
 			// show needed credit
 			showNeededCredit();
+
+			// redraw the panel 
+			drawCourseCanvas();
 		};
 
 		// add the course information to given ro
@@ -313,18 +316,6 @@ Minyue Dai, Chujun He, Xueying Zeng -->
 			canvas.appendChild(circle);
 		}
 
-		// // double click to remove course
-		// function doubleClickRemove(element,course){
-		// 	element.ondblclick=clickRemove;
-
-		// 	function clickRemove(e){
-		// 		mydegree.removeCourse(course);
-		// 		rearrageTables();
-		// 		drawCourseCanvas();
-		// 		// show needed credit
-		// 		showNeededCredit();
-		// 	}
-		// }
 
 		// make element draggable
 		//https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_draggable
