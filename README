@@ -28,3 +28,12 @@ Move the htm file to the same directory, and change python code’s file name to
 ## New Technique
 
 We use regular expression and BeautifulSoup to implement the parser, which is new for this class. 
+
+## Solved Logical Error
+1. The Wrong Movement of Course Node
+Sometimes moving the node may move the course into wrong set. We reset the information about canvas boundary and solve thi issue.
+
+## Unsolved Logical Error
+1. Shared Course between Majors
+The program cannot count the cross-registered courses twice in both majors/minors. We did not solve this issue because it will cause
+another problem of counting the total credits. It has a conflict so we decided to keep it. 
